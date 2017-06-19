@@ -10,6 +10,7 @@
 
 #import "PKPaymentAuthorizationViewController+Stripe_Blocks.h"
 #import "STPAPIClient+ApplePay.h"
+#import "StripeError.h"
 
 FAUXPAS_IGNORED_IN_FILE(APIAvailability)
 
@@ -33,8 +34,34 @@ typedef void (^STPPaymentAuthorizationStatusCallback)(PKPaymentAuthorizationStat
 
 @implementation STPBlockBasedApplePayDelegate
 
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
+- (void)paymentAuthorizationViewController:(__unused PKPaymentAuthorizationViewController *)controller didAuthorizePayment:(PKPayment *)payment handler:(void (^)(PKPaymentAuthorizationResult * _Nonnull))completion {
+    self.onPaymentAuthorization(payment);
+    [self.apiClient createTokenWithPayment:payment completion:^(STPToken * _Nullable token, NSError * _Nullable error) {
+        if (error) {
+            self.lastError = error;
+            PKPaymentAuthorizationResult *result = [[PKPaymentAuthorizationResult alloc] initWithStatus:PKPaymentAuthorizationStatusFailure errors:nil];
+            completion(result);
+            return;
+        }
+        self.onTokenCreation(token, ^(NSError *tokenCreationError){
+            if (tokenCreationError) {
+                self.lastError = tokenCreationError;
+                PKPaymentAuthorizationResult *result = [[PKPaymentAuthorizationResult alloc] initWithStatus:PKPaymentAuthorizationStatusFailure errors:nil];
+                completion(result);
+                return;
+            }
+            self.didSucceed = YES;
+            PKPaymentAuthorizationResult *result = [[PKPaymentAuthorizationResult alloc] initWithStatus:PKPaymentAuthorizationStatusSuccess errors:nil];
+            completion(result);
+        });
+    }];
+}
+#endif
+
 - (void)paymentAuthorizationViewController:(__unused PKPaymentAuthorizationViewController *)controller
-                       didAuthorizePayment:(PKPayment *)payment completion:(STPPaymentAuthorizationStatusCallback)completion {
+                       didAuthorizePayment:(PKPayment *)payment
+                                completion:(STPPaymentAuthorizationStatusCallback)completion {
     self.onPaymentAuthorization(payment);
     [self.apiClient createTokenWithPayment:payment completion:^(STPToken * _Nullable token, NSError * _Nullable error) {
         if (error) {
@@ -61,6 +88,21 @@ typedef void (^STPPaymentAuthorizationStatusCallback)(PKPaymentAuthorizationStat
         completion(PKPaymentAuthorizationStatusSuccess, summaryItems);
     });
 }
+
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
+// TODO: update STPPaymentContextDelegate to allow passing through errors array
+- (void)paymentAuthorizationViewController:(__unused PKPaymentAuthorizationViewController *)controller didSelectShippingContact:(PKContact *)contact handler:(void (^)(PKPaymentRequestShippingContactUpdate *))completion {
+    STPAddress *stpAddress = [[STPAddress alloc] initWithPKContact:contact];
+    self.onShippingAddressSelection(stpAddress, ^(STPShippingStatus status, NSArray<PKShippingMethod *>* shippingMethods, NSArray<PKPaymentSummaryItem*> *summaryItems) {
+        NSError *error;
+        if (status == STPShippingStatusInvalid) {
+            error = [NSError stp_genericConnectionError];
+        }
+        PKPaymentRequestShippingContactUpdate *update = [[PKPaymentRequestShippingContactUpdate alloc] initWithErrors:@[error] paymentSummaryItems:summaryItems shippingMethods:shippingMethods];
+        completion(update);
+    });
+}
+#endif
 
 - (void)paymentAuthorizationViewController:(__unused PKPaymentAuthorizationViewController *)controller
                   didSelectShippingContact:(PKContact *)contact
