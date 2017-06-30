@@ -16,6 +16,7 @@
 		04533F121A68814100C7E52E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04533F111A68814100C7E52E /* Security.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		04533F191A688A0A00C7E52E /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 04533F181A688A0A00C7E52E /* Constants.m */; };
 		04D076171A69C11600094431 /* Stripe.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 04533F0C1A68812D00C7E52E /* Stripe.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8BC73BFB1F06B9C10073F501 /* AlipayExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC73BFA1F06B9C10073F501 /* AlipayExampleViewController.m */; };
 		C12C50DD1E57B3C800EC6D58 /* BrowseExamplesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C12C50DC1E57B3C800EC6D58 /* BrowseExamplesViewController.m */; };
 		C1CACE861E5DE6C3002D0821 /* CardExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1CACE851E5DE6C3002D0821 /* CardExampleViewController.m */; };
 		C1CACE891E5DF7A9002D0821 /* ApplePayExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1CACE881E5DF7A9002D0821 /* ApplePayExampleViewController.m */; };
@@ -51,6 +52,8 @@
 		04533F111A68814100C7E52E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		04533F171A688A0A00C7E52E /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		04533F181A688A0A00C7E52E /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		8BC73BF91F06B9C10073F501 /* AlipayExampleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlipayExampleViewController.h; sourceTree = "<group>"; };
+		8BC73BFA1F06B9C10073F501 /* AlipayExampleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlipayExampleViewController.m; sourceTree = "<group>"; };
 		C12C50DB1E57B3C800EC6D58 /* BrowseExamplesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowseExamplesViewController.h; sourceTree = "<group>"; };
 		C12C50DC1E57B3C800EC6D58 /* BrowseExamplesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowseExamplesViewController.m; sourceTree = "<group>"; };
 		C1CACE841E5DE6C3002D0821 /* CardExampleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardExampleViewController.h; sourceTree = "<group>"; };
@@ -109,6 +112,8 @@
 				C1CACE851E5DE6C3002D0821 /* CardExampleViewController.m */,
 				C1CACE8D1E5E0F94002D0821 /* ThreeDSExampleViewController.h */,
 				C1CACE8E1E5E0F94002D0821 /* ThreeDSExampleViewController.m */,
+				8BC73BF91F06B9C10073F501 /* AlipayExampleViewController.h */,
+				8BC73BFA1F06B9C10073F501 /* AlipayExampleViewController.m */,
 				C1CACE871E5DF7A9002D0821 /* ApplePayExampleViewController.h */,
 				C1CACE881E5DF7A9002D0821 /* ApplePayExampleViewController.m */,
 				C1CACE921E5E3DF6002D0821 /* SofortExampleViewController.h */,
@@ -170,6 +175,7 @@
 				TargetAttributes = {
 					04533E861A687F5D00C7E52E = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = Y28TH9SHX7;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -213,6 +219,7 @@
 				C1CACE861E5DE6C3002D0821 /* CardExampleViewController.m in Sources */,
 				04533EB21A68802E00C7E52E /* ShippingManager.m in Sources */,
 				04533E901A687F5D00C7E52E /* AppDelegate.m in Sources */,
+				8BC73BFB1F06B9C10073F501 /* AlipayExampleViewController.m in Sources */,
 				C1CACE891E5DF7A9002D0821 /* ApplePayExampleViewController.m in Sources */,
 				04533E8D1A687F5D00C7E52E /* main.m in Sources */,
 				C1CACE8F1E5E0F94002D0821 /* ThreeDSExampleViewController.m in Sources */,
@@ -328,7 +335,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = Y28TH9SHX7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/**",
@@ -352,7 +359,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = Y28TH9SHX7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/**",

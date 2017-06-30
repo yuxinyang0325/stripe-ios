@@ -13,6 +13,7 @@
 #import "Constants.h"
 #import "SofortExampleViewController.h"
 #import "ThreeDSExampleViewController.h"
+#import "AlipayExampleViewController.h"
 
 /**
  This view controller presents different examples, each of which demonstrates creating a payment using a different payment method.
@@ -36,7 +37,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
+    return 5;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -53,6 +54,9 @@
             break;
         case 3:
             cell.textLabel.text = @"Sofort";
+            break;
+        case 4:
+            cell.textLabel.text = @"Alipay";
             break;
     }
     return cell;
@@ -81,6 +85,12 @@
         }
         case 3: {
             SofortExampleViewController *exampleVC = [SofortExampleViewController new];
+            exampleVC.delegate = self;
+            viewController = exampleVC;
+            break;
+        }
+        case 4: {
+            AlipayExampleViewController *exampleVC = [AlipayExampleViewController new];
             exampleVC.delegate = self;
             viewController = exampleVC;
             break;
